@@ -76,10 +76,9 @@ public class Dados extends Fragment {
         adaptador = new AdaptadorDados(getContext(), dados, new AdaptadorDados.OnItemClickListener() {
             @Override
             public void onItemClick(int dado) {
-                int rolagem = gerador.nextInt(dado)+1;
-                Toast.makeText(getContext(), rolagem+"", Toast.LENGTH_SHORT).show();
+                //int rolagem = gerador.nextInt(dado)+1;
+                Toast.makeText(getContext(), dado+"", Toast.LENGTH_SHORT).show();
                 //adaptador.setRolagem(rolagem);
-
             }
         });
         rv.setAdapter(adaptador);
