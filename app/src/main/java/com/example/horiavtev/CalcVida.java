@@ -7,6 +7,9 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,7 +17,9 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class CalcVida extends Fragment {
-
+    EditText lvl, inicial, constituicao;
+    Button calc;
+    TextView resultado;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -59,6 +64,23 @@ public class CalcVida extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calc_vida, container, false);
+        View v = inflater.inflate(R.layout.fragment_calc_vida, container, false);
+        inicial = v.findViewById(R.id.inicial);
+        lvl = v.findViewById(R.id.nivel);
+        constituicao = v.findViewById(R.id.constituicao);
+        resultado = v.findViewById(R.id.resultado);
+        calc = v.findViewById(R.id.btnCalc);
+        calc.setOnClickListener(view ->{
+            calcula();
+        });
+        return v;
+    }
+
+    private void calcula() {
+        int i = Integer.parseInt(inicial.getText().toString());
+        int n = Integer.parseInt(lvl.getText().toString());
+        int c = Integer.parseInt(constituicao.getText().toString());
+        int r = (i+c)+(((i/2)+1+c)*(n-1));
+        resultado.setText("Pontos de vida: "+r);
     }
 }
