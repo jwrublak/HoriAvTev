@@ -9,10 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -22,7 +20,6 @@ import java.util.Random;
 public class Dados extends Fragment {
     RecyclerView rv;
     AdaptadorDados adaptador;
-    Random gerador = new Random();
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -73,14 +70,7 @@ public class Dados extends Fragment {
         dados.add(4);dados.add(6);dados.add(8);dados.add(10);dados.add(12);dados.add(20);dados.add(100);
         rv.setHasFixedSize(true);
         rv.setLayoutManager(new LinearLayoutManager(getContext()));
-        adaptador = new AdaptadorDados(getContext(), dados, new AdaptadorDados.OnItemClickListener() {
-            @Override
-            public void onItemClick(int dado) {
-                //int rolagem = gerador.nextInt(dado)+1;
-                Toast.makeText(getContext(), dado+"", Toast.LENGTH_SHORT).show();
-                //adaptador.setRolagem(rolagem);
-            }
-        });
+        adaptador = new AdaptadorDados(getContext(), dados);
         rv.setAdapter(adaptador);
         adaptador.notifyDataSetChanged();
         return v;

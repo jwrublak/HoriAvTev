@@ -1,9 +1,11 @@
 package com.example.horiavtev;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,16 +13,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class AdaptadorDados extends RecyclerView.Adapter<AdaptadorDados.MyViewHolder> {
     Context context;
     ArrayList<Integer> dados;
     AdaptadorDados.OnItemClickListener listener;
+    Random gerador = new Random();
 
-    public AdaptadorDados(Context context, ArrayList<Integer> dados, OnItemClickListener listener) {
+    public AdaptadorDados(Context context, ArrayList<Integer> dados) {
         this.context = context;
         this.dados = dados;
-        this.listener = listener;
+
     }
 
     @NonNull
@@ -36,29 +40,45 @@ public class AdaptadorDados extends RecyclerView.Adapter<AdaptadorDados.MyViewHo
         holder.lados.setText("D " + dado);
         switch (dado) {
             case 4:
-                holder.cl.setBackgroundResource(R.drawable.d4);
+                holder.iv.setBackgroundResource(R.drawable.d4);
                 break;
             case 6:
-                holder.cl.setBackgroundResource(R.drawable.d6);
+                holder.iv.setBackgroundResource(R.drawable.d6);
                 break;
             case 8:
-                holder.cl.setBackgroundResource(R.drawable.d8);
+                holder.iv.setBackgroundResource(R.drawable.d8);
                 break;
             case 10:
-                holder.cl.setBackgroundResource(R.drawable.d10);
+                holder.iv.setBackgroundResource(R.drawable.d10);
                 break;
             case 12:
-                holder.cl.setBackgroundResource(R.drawable.d12);
+                holder.iv.setBackgroundResource(R.drawable.d12);
                 break;
             case 20:
-                holder.cl.setBackgroundResource(R.drawable.d20);
+                holder.iv.setBackgroundResource(R.drawable.d20);
                 break;
             case 100:
-                holder.cl.setBackgroundResource(R.drawable.d100);
+                holder.iv.setBackgroundResource(R.drawable.d100);
                 break;
         }
         holder.rolagem.setText("");
-        listener.onItemClick(dado);
+        holder.itemView.setOnClickListener(view->{
+            int resultado = gerador.nextInt(dado)+1;
+            if(dado == 20){
+                switch (resultado){
+                    case 1:
+                        holder.rolagem.setTextColor(Color.RED);
+                        break;
+                    case 20:
+                        holder.rolagem.setTextColor(Color.GREEN);
+                        break;
+                    default:
+                        holder.rolagem.setTextColor(Color.BLACK);
+                        break;
+                }
+            }
+            holder.rolagem.setText(String.valueOf(resultado));
+        });
     }
 
     @Override
@@ -71,12 +91,12 @@ public class AdaptadorDados extends RecyclerView.Adapter<AdaptadorDados.MyViewHo
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        ConstraintLayout cl;
+        ImageView iv;
         TextView lados, rolagem;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cl = itemView.findViewById(R.id.dado);
+            iv = itemView.findViewById(R.id.dado);
             lados = itemView.findViewById(R.id.lados);
             rolagem = itemView.findViewById(R.id.rolagem);
         }
