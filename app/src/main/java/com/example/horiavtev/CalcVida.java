@@ -1,15 +1,20 @@
 package com.example.horiavtev;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +25,7 @@ public class CalcVida extends Fragment {
     EditText lvl, inicial, constituicao;
     Button calc;
     TextView resultado;
+    View v;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,7 +70,7 @@ public class CalcVida extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_calc_vida, container, false);
+        v = inflater.inflate(R.layout.fragment_calc_vida, container, false);
         inicial = v.findViewById(R.id.inicial);
         lvl = v.findViewById(R.id.nivel);
         constituicao = v.findViewById(R.id.constituicao);
@@ -77,10 +83,35 @@ public class CalcVida extends Fragment {
     }
 
     private void calcula() {
-        int i = Integer.parseInt(inicial.getText().toString());
-        int n = Integer.parseInt(lvl.getText().toString());
-        int c = Integer.parseInt(constituicao.getText().toString());
-        int r = (i+c)+(((i/2)+1+c)*(n-1));
-        resultado.setText("Pontos de vida: "+r);
+        try{
+            int i = Integer.parseInt(inicial.getText().toString());
+            int n = Integer.parseInt(lvl.getText().toString());
+            int c = Integer.parseInt(constituicao.getText().toString());
+            int r = (i+c)+(((i/2)+1+c)*(n-1));
+            resultado.setText("Pontos de vida: "+r);
+        }catch (Exception e){
+            defineToast("Preencha todos os campos corretamente!");
+        }
+
+    }
+    public void defineToast(String mensagem){
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.toastview,
+                (ViewGroup) v.findViewById(R.id.toast_layout_root));
+
+        ImageView image = (ImageView) layout.findViewById(R.id.image);
+        image.setImageResource(R.drawable.logo);
+        ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) image.getLayoutParams();
+        params.width = 180;
+        params.height = 180;
+        image.setLayoutParams(params);
+        TextView text = (TextView) layout.findViewById(R.id.text);
+        text.setText(mensagem);
+
+        Toast toast = new Toast(getContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
     }
 }
