@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         tab.addTab(tab.newTab().setText("Dados"));
         tab.addTab(tab.newTab().setText("Cálculo de Vida"));
         tab.setSelectedTabIndicatorColor(Color.parseColor("#52393C"));
-        tab.setTabTextColors(Color.parseColor("#FF7F6E6E"), Color.parseColor("#52393C"));
+        tab.setTabTextColors(Color.parseColor("#FFFFFF"), Color.parseColor("#52393C"));
         tab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
